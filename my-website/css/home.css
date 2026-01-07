@@ -3,30 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modern Movie UI</title>
+<title>Movie Hub Clone</title>
 <style>
-/* ================= RESET ================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ====== RESET ====== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: "Inter", Arial, sans-serif; background: #0f0f0f; color: #e5e5e5; }
 
-:root {
-  --bg: #0f0f0f;
-  --panel: #141414;
-  --soft: #b3b3b3;
-  --white: #e5e5e5;
-  --accent: #e50914;
-}
-
-body {
-  font-family: "Inter", Arial, sans-serif;
-  background: var(--bg);
-  color: var(--white);
-}
-
-/* ================= NAVBAR ================= */
+/* ====== NAVBAR ====== */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -35,48 +18,22 @@ body {
   background: rgba(20,20,20,0.9);
   backdrop-filter: blur(6px);
 }
+.navbar img { height: 42px; }
+.nav-links { display: flex; gap: 18px; }
+.nav-links a { color: #e5e5e5; text-decoration: none; opacity: 0.85; transition: 0.2s; }
+.nav-links a:hover { opacity: 1; }
+.search-bar { padding: 8px 12px; border-radius: 6px; border: none; background: #1a1a1a; color: #fff; }
 
-.navbar img {
-  height: 42px;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-.nav-links a {
-  font-size: 14px;
-  color: var(--white);
-  text-decoration: none;
-  opacity: 0.85;
-  transition: opacity 0.2s ease;
-}
-
-.nav-links a:hover {
-  opacity: 1;
-}
-
-.search-bar {
-  padding: 8px 12px;
-  background: #1a1a1a;
-  color: var(--white);
-  border-radius: 6px;
-  border: none;
-}
-
-/* ================= BANNER ================= */
+/* ====== BANNER ====== */
 .banner {
   height: 50vh;
   display: flex;
   align-items: flex-end;
   padding: 40px;
-  background-image: url('banner.jpg');
+  background-image: url('banner.jpg'); /* Replace with your banner image */
   background-size: cover;
   background-position: center;
 }
-
 .banner h1 {
   font-size: 32px;
   font-weight: 500;
@@ -85,7 +42,10 @@ body {
   border-radius: 8px;
 }
 
-/* ================= SCROLL ROW ================= */
+/* ====== MOVIE ROW ====== */
+.row { margin: 20px 32px; }
+.row h2 { margin-bottom: 12px; font-size: 20px; }
+
 .list {
   display: flex;
   gap: 12px;
@@ -108,7 +68,7 @@ body {
   opacity: 0.9;
 }
 
-/* ================= MODAL ================= */
+/* ====== MODAL ====== */
 .modal {
   position: fixed;
   inset: 0;
@@ -118,9 +78,8 @@ body {
   align-items: center;
   z-index: 10;
 }
-
 .modal-content {
-  background: var(--panel);
+  background: #141414;
   width: 90%;
   max-width: 850px;
   padding: 32px;
@@ -129,28 +88,10 @@ body {
   overflow-y: auto;
   position: relative;
 }
-
-.modal-body {
-  display: flex;
-  gap: 24px;
-}
-
-.modal-body img {
-  width: 32%;
-  border-radius: 12px;
-}
-
-.modal-text h2 {
-  font-size: 26px;
-  margin-bottom: 10px;
-}
-
-.modal-text p {
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--soft);
-}
-
+.modal-body { display: flex; gap: 24px; }
+.modal-body img { width: 32%; border-radius: 12px; }
+.modal-text h2 { font-size: 26px; margin-bottom: 10px; }
+.modal-text p { font-size: 15px; line-height: 1.6; color: #b3b3b3; }
 .close {
   position: absolute;
   top: 18px;
@@ -158,19 +99,15 @@ body {
   font-size: 28px;
   cursor: pointer;
 }
+.stars { color: gold; }
 
-.stars {
-  color: gold;
-}
-
-/* ================= FOOTER ================= */
+/* ====== FOOTER ====== */
 .footer {
   background: #0b0b0b;
   padding: 24px;
   text-align: center;
-  color: var(--soft);
+  color: #b3b3b3;
 }
-
 .footer-links {
   display: flex;
   justify-content: center;
@@ -178,33 +115,16 @@ body {
   flex-wrap: wrap;
   margin-top: 10px;
 }
+.footer-links a { color: #e50914; font-size: 13px; text-decoration: none; }
+.footer-links a:hover { color: #fff; }
 
-.footer-links a {
-  font-size: 13px;
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.footer-links a:hover {
-  color: var(--white);
-}
-
-/* ================= MOBILE ================= */
+/* ====== MOBILE ====== */
 @media (max-width: 768px) {
-  .navbar {
-    padding: 14px 20px;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .navbar { flex-direction: column; gap: 10px; padding: 14px 20px; }
   .row { margin: 36px 20px; }
-  .modal-body {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
+  .modal-body { flex-direction: column; align-items: center; text-align: center; }
   .modal-body img { width: 65%; }
 }
-
 @media (max-width: 480px) {
   .banner h1 { font-size: 22px; }
   .row h2 { font-size: 16px; }
@@ -234,16 +154,16 @@ body {
 <div class="row">
   <h2>Trending Now</h2>
   <div class="list">
-    <div class="card" data-title="Movie 1" data-description="Description of Movie 1" data-rating="4">
+    <div class="card" data-title="Movie 1" data-description="Awesome movie 1 description" data-rating="4">
       <img src="movie1.jpg" alt="Movie 1">
     </div>
-    <div class="card" data-title="Movie 2" data-description="Description of Movie 2" data-rating="5">
+    <div class="card" data-title="Movie 2" data-description="Awesome movie 2 description" data-rating="5">
       <img src="movie2.jpg" alt="Movie 2">
     </div>
-    <div class="card" data-title="Movie 3" data-description="Description of Movie 3" data-rating="3">
+    <div class="card" data-title="Movie 3" data-description="Awesome movie 3 description" data-rating="3">
       <img src="movie3.jpg" alt="Movie 3">
     </div>
-    <div class="card" data-title="Movie 4" data-description="Description of Movie 4" data-rating="4">
+    <div class="card" data-title="Movie 4" data-description="Awesome movie 4 description" data-rating="4">
       <img src="movie4.jpg" alt="Movie 4">
     </div>
   </div>
@@ -266,7 +186,7 @@ body {
 
 <!-- FOOTER -->
 <div class="footer">
-  &copy; 2026 My Movie Website
+  &copy; 2026 Movie Hub Clone
   <div class="footer-links">
     <a href="#">Privacy</a>
     <a href="#">Terms</a>
@@ -274,7 +194,6 @@ body {
   </div>
 </div>
 
-<!-- ================= SCRIPT ================= -->
 <script>
 // CLICK & DRAG SCROLL
 const lists = document.querySelectorAll(".list");
@@ -283,24 +202,14 @@ lists.forEach(list => {
   let startX;
   let scrollLeft;
 
-  list.addEventListener("mousedown", (e) => {
+  list.addEventListener("mousedown", e => {
     isDown = true;
-    list.classList.add("active");
     startX = e.pageX - list.offsetLeft;
     scrollLeft = list.scrollLeft;
   });
-
-  list.addEventListener("mouseleave", () => {
-    isDown = false;
-    list.classList.remove("active");
-  });
-
-  list.addEventListener("mouseup", () => {
-    isDown = false;
-    list.classList.remove("active");
-  });
-
-  list.addEventListener("mousemove", (e) => {
+  list.addEventListener("mouseleave", () => isDown = false);
+  list.addEventListener("mouseup", () => isDown = false);
+  list.addEventListener("mousemove", e => {
     if(!isDown) return;
     e.preventDefault();
     const x = e.pageX - list.offsetLeft;
@@ -325,12 +234,12 @@ cards.forEach(card => {
     modalTitle.textContent = card.dataset.title;
     modalDesc.textContent = card.dataset.description;
     const rating = parseInt(card.dataset.rating) || 0;
-    modalRating.textContent = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+    modalRating.textContent = '★'.repeat(rating) + '☆'.repeat(5-rating);
   });
 });
 
-closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
-window.addEventListener('click', (e) => { if(e.target === modal) modal.style.display = 'none'; });
+closeBtn.addEventListener('click', () => modal.style.display = 'none');
+window.addEventListener('click', e => { if(e.target === modal) modal.style.display = 'none'; });
 </script>
 
 </body>
