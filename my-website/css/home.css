@@ -1,90 +1,110 @@
-<script>
-/* =========================
-   MODAL LOGIC
-========================= */
-
-const modal = document.querySelector(".modal");
-const modalContent = document.querySelector(".modal-content");
-const modalImage = modal.querySelector(".modal-body img");
-const modalTitle = modal.querySelector(".modal-text h2");
-const modalDescription = modal.querySelector(".modal-text p");
-const closeModalBtn = modal.querySelector(".close");
-
-/* Open modal when clicking a movie image */
-document.querySelectorAll(".list img, .search-modal img").forEach(img => {
-  img.addEventListener("click", () => {
-    modal.style.display = "flex";
-    document.body.style.overflow = "hidden";
-
-    modalImage.src = img.src;
-    modalTitle.textContent = img.dataset.title || "Movie Title";
-    modalDescription.textContent = img.dataset.description || "No description available.";
-  });
-});
-
-/* Close modal */
-function closeModal() {
-  modal.style.display = "none";
-  document.body.style.overflow = "";
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-closeModalBtn.addEventListener("click", closeModal);
-
-/* Close when clicking outside content */
-modal.addEventListener("click", (e) => {
-  if (!modalContent.contains(e.target)) {
-    closeModal();
-  }
-});
-
-/* =========================
-   SEARCH MODAL
-========================= */
-
-const searchBar = document.querySelector(".search-bar");
-const searchModal = document.querySelector(".search-modal");
-const searchInput = searchModal.querySelector("input");
-const searchResults = searchModal.querySelector(".results");
-const closeSearchBtn = searchModal.querySelector(".close");
-
-/* Open search modal */
-searchBar.addEventListener("focus", () => {
-  searchModal.style.display = "flex";
-  searchInput.focus();
-  document.body.style.overflow = "hidden";
-});
-
-/* Close search modal */
-closeSearchBtn.addEventListener("click", () => {
-  searchModal.style.display = "none";
-  document.body.style.overflow = "";
-  searchInput.value = "";
-  filterResults("");
-});
-
-/* Live search */
-searchInput.addEventListener("input", (e) => {
-  filterResults(e.target.value.toLowerCase());
-});
-
-function filterResults(query) {
-  document.querySelectorAll(".list img").forEach(img => {
-    const title = img.dataset.title?.toLowerCase() || "";
-    img.style.display = title.includes(query) ? "block" : "none";
-  });
+:root {
+  --bg: #0f0f0f;
+  --panel: #141414;
+  --soft: #b3b3b3;
+  --white: #e5e5e5;
+  --accent: #e50914;
 }
 
-/* =========================
-   ESC KEY SUPPORT
-========================= */
+/* BASE */
+body {
+  font-family: "Inter", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--white);
+}
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    if (modal.style.display === "flex") closeModal();
-    if (searchModal.style.display === "flex") {
-      searchModal.style.display = "none";
-      document.body.style.overflow = "";
-    }
-  }
-});
-</script>
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  background: rgba(20, 20, 20, 0.9);
+  backdrop-filter: blur(6px);
+}
+
+.navbar img {
+  height: 42px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.nav-links a {
+  font-size: 14px;
+  color: var(--white);
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.nav-links a:hover {
+  opacity: 1;
+}
+
+.search-bar {
+  padding: 8px 12px;
+  background: #1a1a1a;
+  color: var(--white);
+  border-radius: 6px;
+  border: none;
+}
+
+/* BANNER */
+.banner {
+  height: 50vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 40px;
+  background-size: cover;
+  background-position: center;
+}
+
+.banner h1 {
+  font-size: 32px;
+  font-weight: 500;
+  padding: 12px 18px;
+  background: linear-gradient(to right, rgba(0,0,0,.85), rgba(0,0,0,.4));
+  border-radius: 8px;
+}
+
+/* ROWS */
+.row {
+  margin: 48px 32px;
+}
+
+.row h2 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+/* MOVIE LIST */
+.list {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.list img {
+  width: 160px;
+  border-radius: 10px;
+  cursor: pointer;
+  scroll-snap-align: start;
+  box-shadow: 0 10px 30px rgba(0,0,0,.6);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.list im
