@@ -133,9 +133,8 @@ body { font-family: "Inter", Arial, sans-serif; background: #0f0f0f; color: #e5e
 </head>
 <body>
 
-<!-- NAVBAR -->
 <div class="navbar">
-  <img src="logo.png" alt="Logo">
+  <div class="logo">MovieHub</div>
   <div class="nav-links">
     <a href="#">Home</a>
     <a href="#">Movies</a>
@@ -144,6 +143,7 @@ body { font-family: "Inter", Arial, sans-serif; background: #0f0f0f; color: #e5e
   </div>
   <input type="text" class="search-bar" placeholder="Search...">
 </div>
+
 
 <!-- BANNER -->
 <div class="banner">
@@ -244,3 +244,4 @@ window.addEventListener('click', e => { if(e.target === modal) modal.style.displ
 
 </body>
 </html>
+
