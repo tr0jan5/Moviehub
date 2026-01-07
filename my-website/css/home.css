@@ -1,277 +1,71 @@
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+<script>
+// ================================
+// CLICK & DRAG SCROLL
+// ================================
+const lists = document.querySelectorAll(".list");
 
-:root {
-  --bg: #0f0f0f;
-  --panel: #141414;
-  --soft: #b3b3b3;
-  --white: #e5e5e5;
-  --accent: #e50914;
-}
+lists.forEach(list => {
+  let isDown = false;
+  let startX;
+  let scrollLeft;
 
-/* BASE */
-body {
-  font-family: "Inter", Arial, sans-serif;
-  background: var(--bg);
-  color: var(--white);
-}
+  list.addEventListener("mousedown", (e) => {
+    isDown = true;
+    list.classList.add("active");
+    startX = e.pageX - list.offsetLeft;
+    scrollLeft = list.scrollLeft;
+  });
 
-/* NAVBAR */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 32px;
-  background: rgba(20, 20, 20, 0.9);
-  backdrop-filter: blur(6px);
-}
+  list.addEventListener("mouseleave", () => {
+    isDown = false;
+    list.classList.remove("active");
+  });
 
-.navbar img {
-  height: 42px;
-}
+  list.addEventListener("mouseup", () => {
+    isDown = false;
+    list.classList.remove("active");
+  });
 
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
+  list.addEventListener("mousemove", (e) => {
+    if(!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - list.offsetLeft;
+    const walk = (x - startX) * 2; // scroll speed
+    list.scrollLeft = scrollLeft - walk;
+  });
+});
 
-.nav-links a {
-  font-size: 14px;
-  color: var(--white);
-  text-decoration: none;
-  opacity: 0.85;
-  transition: opacity 0.2s ease;
-}
+// ================================
+// MODAL POPUP
+// ================================
+const cards = document.querySelectorAll('.card');
+const modal = document.querySelector('.modal');
+const modalImg = document.getElementById('modal-img');
+const modalTitle = document.getElementById('modal-title');
+const modalDesc = document.getElementById('modal-description');
+const modalRating = document.getElementById('modal-rating');
+const closeBtn = document.querySelector('.modal .close');
 
-.nav-links a:hover {
-  opacity: 1;
-}
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    modal.style.display = 'flex';
+    modalImg.src = card.querySelector('img').src;
+    modalTitle.textContent = card.dataset.title;
+    modalDesc.textContent = card.dataset.description;
 
-.search-bar {
-  padding: 8px 12px;
-  background: #1a1a1a;
-  color: var(--white);
-  border-radius: 6px;
-  border: none;
-}
+    // Stars rating
+    const rating = parseInt(card.dataset.rating) || 0;
+    modalRating.textContent = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+  });
+});
 
-/* BANNER */
-.banner {
-  height: 50vh;
-  display: flex;
-  align-items: flex-end;
-  padding: 40px;
-  background-size: cover;
-  background-position: center;
-}
+// Close modal when clicking X
+closeBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
 
-.banner h1 {
-  font-size: 32px;
-  font-weight: 500;
-  padding: 12px 18px;
-  background: linear-gradient(to right, rgba(0,0,0,.85), rgba(0,0,0,.4));
-  border-radius: 8px;
-}
-
-/* SCROLL ROW */
-.list {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Hide scrollbar */
-.list::-webkit-scrollbar {
-  display: none;
-}
-.list {
-  scrollbar-width: none;
-}
-
-/* POSTERS */
-.list img {
-  width: 150px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-/* SUBTLE HOVER */
-.list img:hover {
-  transform: translateY(-4px);
-  opacity: 0.9;
-}
-
-
-/* MODAL */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.9);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-}
-
-.modal-content {
-  background: var(--panel);
-  width: 90%;
-  max-width: 850px;
-  padding: 32px;
-  border-radius: 16px;
-  max-height: 90vh;
-  overflow-y: auto;
-  position: relative;
-}
-
-.modal-body {
-  display: flex;
-  gap: 24px;
-}
-
-.modal-body img {
-  width: 32%;
-  border-radius: 12px;
-}
-
-.modal-text h2 {
-  font-size: 26px;
-  margin-bottom: 10px;
-}
-
-.modal-text p {
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--soft);
-}
-
-.close {
-  position: absolute;
-  top: 18px;
-  right: 22px;
-  font-size: 28px;
-  cursor: pointer;
-}
-
-.stars {
-  color: gold;
-}
-
-/* SEARCH MODAL */
-.search-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.95);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 15;
-}
-
-.search-modal input {
-  width: 360px;
-  max-width: 90%;
-  padding: 14px;
-  font-size: 16px;
-  background: #1a1a1a;
-  color: var(--white);
-  border-radius: 10px;
-  border: none;
-  margin-bottom: 24px;
-}
-
-.search-modal .results {
-  width: 90%;
-  max-width: 900px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 14px;
-}
-
-.search-modal img {
-  width: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.search-modal img:hover {
-  transform: scale(1.05);
-}
-
-.search-modal .close {
-  position: absolute;
-  top: 24px;
-  right: 30px;
-  font-size: 32px;
-}
-
-/* FOOTER */
-.footer {
-  background: #0b0b0b;
-  padding: 24px;
-  text-align: center;
-  color: var(--soft);
-}
-
-.footer-links {
-  display: flex;
-  justify-content: center;
-  gap: 18px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-
-.footer-links a {
-  font-size: 13px;
-  color: var(--accent);
-  text-decoration: none;
-}
-
-.footer-links a:hover {
-  color: var(--white);
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  .navbar {
-    padding: 14px 20px;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .row {
-    margin: 36px 20px;
-  }
-
-  .modal-body {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .modal-body img {
-    width: 65%;
-  }
-}
-
-@media (max-width: 480px) {
-  .banner h1 {
-    font-size: 22px;
-  }
-
-  .row h2 {
-    font-size: 16px;
-  }
-}
-
+// Close modal when clicking outside modal content
+window.addEventListener('click', (e) => {
+  if(e.target === modal) modal.style.display = 'none';
+});
+</script>
