@@ -40,6 +40,72 @@ body { font-family: Arial, sans-serif; background: #111; color: #fff; }
   outline: none;
 }
 
+.list-container {
+  position: relative;
+}
+
+.list {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 12px;
+  padding: 10px 0;
+  
+  /* Modern scrollbar style */
+  scrollbar-width: thin;
+  scrollbar-color: #1db954 rgba(255,255,255,0.1);
+}
+
+/* Hide scrollbar for Webkit browsers */
+.list::-webkit-scrollbar {
+  height: 8px;
+}
+.list::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+  border-radius: 4px;
+}
+.list::-webkit-scrollbar-thumb {
+  background: #1db954;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+.list::-webkit-scrollbar-thumb:hover {
+  background: #1ed760;
+}
+
+/* Side scroll buttons */
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(30,30,30,0.7);
+  border: none;
+  color: #fff;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.3s, transform 0.2s;
+  font-size: 1.2rem;
+}
+.scroll-btn:hover {
+  background: #1db954;
+  transform: scale(1.1);
+}
+.scroll-left { left: 5px; }
+.scroll-right { right: 5px; }
+
+.list img {
+  width: 150px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+}
+.list img:hover {
+  transform: scale(1.08);
+  filter: brightness(1.2);
+  box-shadow: 0 8px 20px rgba(0,255,0,0.3);
+}
 /* BANNER */
 .banner {
   height: 50vh;
@@ -209,4 +275,5 @@ body { font-family: Arial, sans-serif; background: #111; color: #fff; }
   .modal-content { width: 95%; padding: 15px; }
   .search-modal .close { font-size: 24px; top: 10px; right: 20px; }
 }
+
 
