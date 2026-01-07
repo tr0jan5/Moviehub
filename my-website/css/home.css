@@ -19,6 +19,17 @@ body { font-family: Arial, sans-serif; background: #111; color: #fff; }
   color: #fff;
   text-shadow: 0 0 10px #1db954;
 }
+.home-link {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+  padding: 6px 10px;
+  transition: color 0.3s;
+}
+
+.home-link:hover {
+  color: #1db954;
+}
 
 .nav-links {
   display: flex;
@@ -273,6 +284,7 @@ body { font-family: Arial, sans-serif; background: #111; color: #fff; }
   .modal-content { width: 95%; padding: 15px; }
   .search-modal .close { font-size: 24px; top: 10px; right: 20px; }
 }
+
 
 
 
