@@ -5,136 +5,57 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Movie Hub Clone</title>
 <style>
-/* ====== RESET ====== */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: "Inter", Arial, sans-serif; background: #0f0f0f; color: #e5e5e5; }
+  /* RESET */
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"Inter", Arial, sans-serif; background:#0f0f0f; color:#e5e5e5; }
 
-/* ====== NAVBAR ====== */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 32px;
-  background: rgba(20,20,20,0.9);
-  backdrop-filter: blur(6px);
-}
-.navbar img { height: 42px; }
-.nav-links { display: flex; gap: 18px; }
-.nav-links a { color: #e5e5e5; text-decoration: none; opacity: 0.85; transition: 0.2s; }
-.nav-links a:hover { opacity: 1; }
-.search-bar { padding: 8px 12px; border-radius: 6px; border: none; background: #1a1a1a; color: #fff; }
+  /* NAVBAR */
+  .navbar { display:flex; justify-content:space-between; align-items:center; padding:16px 32px; background:rgba(20,20,20,0.9); backdrop-filter:blur(6px); }
+  .navbar img { height:42px; }
+  .nav-links { display:flex; gap:18px; }
+  .nav-links a { color:#e5e5e5; text-decoration:none; opacity:0.85; transition:0.2s; }
+  .nav-links a:hover { opacity:1; }
+  .search-bar { padding:8px 12px; border-radius:6px; border:none; background:#1a1a1a; color:#fff; }
 
-/* ====== BANNER ====== */
-.banner {
-  height: 50vh;
-  display: flex;
-  align-items: flex-end;
-  padding: 40px;
-  background-image: url('banner.jpg'); /* Replace with your banner image */
-  background-size: cover;
-  background-position: center;
-}
-.banner h1 {
-  font-size: 32px;
-  font-weight: 500;
-  padding: 12px 18px;
-  background: linear-gradient(to right, rgba(0,0,0,.85), rgba(0,0,0,.4));
-  border-radius: 8px;
-}
+  /* BANNER */
+  .banner { height:50vh; display:flex; align-items:flex-end; padding:40px; background-size:cover; background-position:center; }
+  .banner h1 { font-size:32px; font-weight:500; padding:12px 18px; background:linear-gradient(to right, rgba(0,0,0,.85), rgba(0,0,0,.4)); border-radius:8px; }
 
-/* ====== MOVIE ROW ====== */
-.row { margin: 20px 32px; }
-.row h2 { margin-bottom: 12px; font-size: 20px; }
+  /* MOVIE ROW */
+  .row { margin:20px 32px; }
+  .row h2 { margin-bottom:12px; font-size:20px; }
+  .list { display:flex; gap:12px; overflow-x:auto; padding-bottom:8px; scroll-behavior:smooth; -webkit-overflow-scrolling:touch; }
+  .list::-webkit-scrollbar { display:none; }
+  .list { scrollbar-width:none; }
+  .list img { width:150px; border-radius:8px; cursor:pointer; transition:transform 0.2s ease, opacity 0.2s ease; }
+  .list img:hover { transform:translateY(-4px); opacity:0.9; }
 
-.list {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-}
-.list::-webkit-scrollbar { display: none; }
-.list { scrollbar-width: none; }
+  /* MODAL */
+  .modal { position:fixed; inset:0; background:rgba(0,0,0,.9); display:none; justify-content:center; align-items:center; z-index:10; }
+  .modal-content { background:#141414; width:90%; max-width:850px; padding:32px; border-radius:16px; max-height:90vh; overflow-y:auto; position:relative; }
+  .modal-body { display:flex; gap:24px; }
+  .modal-body img { width:32%; border-radius:12px; }
+  .modal-text h2 { font-size:26px; margin-bottom:10px; }
+  .modal-text p { font-size:15px; line-height:1.6; color:#b3b3b3; }
+  .close { position:absolute; top:18px; right:22px; font-size:28px; cursor:pointer; }
+  .stars { color:gold; }
 
-.list img {
-  width: 150px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-.list img:hover {
-  transform: translateY(-4px);
-  opacity: 0.9;
-}
+  /* FOOTER */
+  .footer { background:#0b0b0b; padding:24px; text-align:center; color:#b3b3b3; }
+  .footer-links { display:flex; justify-content:center; gap:18px; flex-wrap:wrap; margin-top:10px; }
+  .footer-links a { color:#e50914; font-size:13px; text-decoration:none; }
+  .footer-links a:hover { color:#fff; }
 
-/* ====== MODAL ====== */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.9);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-}
-.modal-content {
-  background: #141414;
-  width: 90%;
-  max-width: 850px;
-  padding: 32px;
-  border-radius: 16px;
-  max-height: 90vh;
-  overflow-y: auto;
-  position: relative;
-}
-.modal-body { display: flex; gap: 24px; }
-.modal-body img { width: 32%; border-radius: 12px; }
-.modal-text h2 { font-size: 26px; margin-bottom: 10px; }
-.modal-text p { font-size: 15px; line-height: 1.6; color: #b3b3b3; }
-.close {
-  position: absolute;
-  top: 18px;
-  right: 22px;
-  font-size: 28px;
-  cursor: pointer;
-}
-.stars { color: gold; }
-
-/* ====== FOOTER ====== */
-.footer {
-  background: #0b0b0b;
-  padding: 24px;
-  text-align: center;
-  color: #b3b3b3;
-}
-.footer-links {
-  display: flex;
-  justify-content: center;
-  gap: 18px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-.footer-links a { color: #e50914; font-size: 13px; text-decoration: none; }
-.footer-links a:hover { color: #fff; }
-
-/* ====== MOBILE ====== */
-@media (max-width: 768px) {
-  .navbar { flex-direction: column; gap: 10px; padding: 14px 20px; }
-  .row { margin: 36px 20px; }
-  .modal-body { flex-direction: column; align-items: center; text-align: center; }
-  .modal-body img { width: 65%; }
-}
-@media (max-width: 480px) {
-  .banner h1 { font-size: 22px; }
-  .row h2 { font-size: 16px; }
-}
+  /* MOBILE */
+  @media(max-width:768px){ .navbar{flex-direction:column;gap:10px;padding:14px 20px;} .row{margin:36px 20px;} .modal-body{flex-direction:column;align-items:center;text-align:center;} .modal-body img{width:65%;} }
+  @media(max-width:480px){ .banner h1{font-size:22px;} .row h2{font-size:16px;} }
 </style>
 </head>
 <body>
 
+<!-- NAVBAR -->
 <div class="navbar">
-  <div class="logo">MovieHub</div>
+  <img src="logo.png" alt="Logo">
   <div class="nav-links">
     <a href="#">Home</a>
     <a href="#">Movies</a>
@@ -144,29 +65,20 @@ body { font-family: "Inter", Arial, sans-serif; background: #0f0f0f; color: #e5e
   <input type="text" class="search-bar" placeholder="Search...">
 </div>
 
-
 <!-- BANNER -->
 <div class="banner">
-  <h1>Featured Movie</h1>
+  <h1 id="banner-title">Featured Movie</h1>
 </div>
 
-<!-- MOVIE ROW -->
+<!-- MOVIE ROWS -->
 <div class="row">
   <h2>Trending Now</h2>
-  <div class="list">
-    <div class="card" data-title="Movie 1" data-description="Awesome movie 1 description" data-rating="4">
-      <img src="movie1.jpg" alt="Movie 1">
-    </div>
-    <div class="card" data-title="Movie 2" data-description="Awesome movie 2 description" data-rating="5">
-      <img src="movie2.jpg" alt="Movie 2">
-    </div>
-    <div class="card" data-title="Movie 3" data-description="Awesome movie 3 description" data-rating="3">
-      <img src="movie3.jpg" alt="Movie 3">
-    </div>
-    <div class="card" data-title="Movie 4" data-description="Awesome movie 4 description" data-rating="4">
-      <img src="movie4.jpg" alt="Movie 4">
-    </div>
-  </div>
+  <div class="list" id="trending-list"></div>
+</div>
+
+<div class="row">
+  <h2>Top Rated</h2>
+  <div class="list" id="toprated-list"></div>
 </div>
 
 <!-- MODAL -->
@@ -195,31 +107,25 @@ body { font-family: "Inter", Arial, sans-serif; background: #0f0f0f; color: #e5e
 </div>
 
 <script>
-// CLICK & DRAG SCROLL
-const lists = document.querySelectorAll(".list");
-lists.forEach(list => {
-  let isDown = false;
-  let startX;
-  let scrollLeft;
+const API_KEY = 'YOUR_TMDB_API_KEY'; // <--- Replace with your TMDB API Key
+const IMAGE_BASE = 'https://image.tmdb.org/t/p/w500';
 
-  list.addEventListener("mousedown", e => {
-    isDown = true;
-    startX = e.pageX - list.offsetLeft;
-    scrollLeft = list.scrollLeft;
-  });
-  list.addEventListener("mouseleave", () => isDown = false);
-  list.addEventListener("mouseup", () => isDown = false);
-  list.addEventListener("mousemove", e => {
+// CLICK & DRAG SCROLL
+document.querySelectorAll('.list').forEach(list => {
+  let isDown = false, startX, scrollLeft;
+  list.addEventListener('mousedown', e => { isDown=true; startX=e.pageX-list.offsetLeft; scrollLeft=list.scrollLeft; });
+  list.addEventListener('mouseleave', ()=>isDown=false);
+  list.addEventListener('mouseup', ()=>isDown=false);
+  list.addEventListener('mousemove', e => {
     if(!isDown) return;
     e.preventDefault();
     const x = e.pageX - list.offsetLeft;
-    const walk = (x - startX) * 2; // scroll speed
+    const walk = (x-startX)*2;
     list.scrollLeft = scrollLeft - walk;
   });
 });
 
 // MODAL POPUP
-const cards = document.querySelectorAll('.card');
 const modal = document.querySelector('.modal');
 const modalImg = document.getElementById('modal-img');
 const modalTitle = document.getElementById('modal-title');
@@ -227,21 +133,46 @@ const modalDesc = document.getElementById('modal-description');
 const modalRating = document.getElementById('modal-rating');
 const closeBtn = document.querySelector('.modal .close');
 
-cards.forEach(card => {
-  card.addEventListener('click', () => {
-    modal.style.display = 'flex';
-    modalImg.src = card.querySelector('img').src;
+closeBtn.addEventListener('click', ()=> modal.style.display='none');
+window.addEventListener('click', e => { if(e.target===modal) modal.style.display='none'; });
+
+function createCard(movie){
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.dataset.title = movie.title || movie.name;
+  card.dataset.description = movie.overview;
+  card.dataset.rating = Math.round(movie.vote_average/2); // 0-5 stars
+  const img = document.createElement('img');
+  img.src = IMAGE_BASE + movie.poster_path;
+  card.appendChild(img);
+  card.addEventListener('click', ()=>{
+    modal.style.display='flex';
+    modalImg.src = img.src;
     modalTitle.textContent = card.dataset.title;
     modalDesc.textContent = card.dataset.description;
-    const rating = parseInt(card.dataset.rating) || 0;
-    modalRating.textContent = '★'.repeat(rating) + '☆'.repeat(5-rating);
+    const rating = parseInt(card.dataset.rating)||0;
+    modalRating.textContent='★'.repeat(rating)+'☆'.repeat(5-rating);
   });
-});
+  return card;
+}
 
-closeBtn.addEventListener('click', () => modal.style.display = 'none');
-window.addEventListener('click', e => { if(e.target === modal) modal.style.display = 'none'; });
+// FETCH TMDB DATA
+async function fetchMovies(url, containerId){
+  const res = await fetch(url);
+  const data = await res.json();
+  const container = document.getElementById(containerId);
+  data.results.forEach(movie=>{
+    if(movie.poster_path){
+      container.appendChild(createCard(movie));
+    }
+  });
+}
+
+// Fetch Trending
+fetchMovies(`https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`, 'trending-list');
+// Fetch Top Rated
+fetchMovies(`https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}`, 'toprated-list');
 </script>
 
 </body>
 </html>
-
